@@ -68,7 +68,7 @@ https://github.com/Animator-Anon/Animator
 ## Parameter Sequencer
 https://github.com/rewbs/sd-parseq
 
-使用严格控制和灵活插值生成视频，可以控制许多Stable Diffusion参数（如种子(seed)，比例(scale)，提示(prompt)权重，去噪强度等），以及输入处理参数（如缩放，平移，3D旋转等）。
+使用严格控制和灵活插值生成视频，可以控制许多Stable Diffusion参数（如种子(seed)，比例(scale)，提示(prompt)权重，降噪强度(Denoising strength)等），以及输入处理参数（如缩放，平移，3D旋转等）。
 
 ## Alternate Noise Schedules
 https://gist.github.com/dfaker/f88aa62e3a14b559fe4e5f6b345db664

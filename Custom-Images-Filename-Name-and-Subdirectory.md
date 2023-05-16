@@ -110,7 +110,7 @@ But some **Custom Scripts** might generate **multiples images** using the **same
 
 in this case it is safer to also use `%f` for `Microsecond as a decimal number, zero-padded to 6 digits.`
 
-但是一些**自定义脚本**可能会在**单个批次**中使用**相同的种子**生成**多个图像**，
+但是一些**自定义脚本**可能会在**单个批次**中使用**相同的种子(seed)**生成**多个图像**，
 
 在这种情况下，更安全的做法是将“微秒”的“%f”用作十进制数，用零填充到 6 位数字。
 

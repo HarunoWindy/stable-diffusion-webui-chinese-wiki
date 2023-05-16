@@ -133,7 +133,7 @@ option_payload = {
 response = requests.post(url=f'{url}/sdapi/v1/options', json=option_payload)
 ```
 在将此负载发送到API后，模型应该切换到我设置的模型，并将CLIP跳过设置为2。需要再次强调，这与"override_settings"不同，因为此更改将持久存在，而"override_settings"仅适用于单个请求。
-请注意，如果更改了`sd_model_checkpoint`，则值应为Web UI中显示的检查点名称。可以使用此API端点引用它（与"options" API引用方式相同）。
+请注意，如果更改了`sd_model_checkpoint`，则值应为Web UI中显示的检查点(checkpoint(s))名称。可以使用此API端点引用它（与"options" API引用方式相同）。
 
 ![image](https://user-images.githubusercontent.com/2993060/202928589-114aff91-2777-4269-9492-2eab015c5bca.png)
 

@@ -39,11 +39,11 @@ set COMMANDLINE_ARGS=--allow-code --xformers --skip-torch-cuda-test --no-half-va
 --exit |  |  | 安装后终止 |
 --data-dir | DATA_DIR | ./ | 存储所有用户数据的基本路径 |
 --config | CONFIG | configs/stable-diffusion/v1-inference.yaml | 构建模型的配置路径 |
---ckpt | CKPT | model.ckpt | 稳定扩散模型的检查点路径；如果指定，此检查点将被添加到检查点列表并加载 |
---ckpt-dir | CKPT_DIR | None | 稳定扩散检查点目录的路径 |
+--ckpt | CKPT | model.ckpt | 稳定扩散模型的检查点(checkpoint(s))路径；如果指定，此检查点(checkpoint(s))将被添加到检查点(checkpoint(s))列表并加载 |
+--ckpt-dir | CKPT_DIR | None | 稳定扩散检查点(checkpoint(s))目录的路径 |
 --no-download-sd-model | None | False | 即使没有找到模型也不下载SD1.5模型 |
 --vae-dir | VAE_PATH | None | 变分自编码器模型的路径；禁用与VAE相关的所有设置
---vae-path | VAE_PATH | None | 用作VAE的检查点；设置此参数
+--vae-path | VAE_PATH | None | 用作VAE的检查点(checkpoint(s))；设置此参数
 --gfpgan-dir| GFPGAN_DIR | GFPGAN/ | GFPGAN目录 |
 --gfpgan-model| GFPGAN_MODEL | GFPGAN模型文件名 |
 --codeformer-models-path | CODEFORMER_MODELS_PATH | models/Codeformer/ | codeformer模型文件目录的路径。 |
@@ -91,7 +91,7 @@ set COMMANDLINE_ARGS=--allow-code --xformers --skip-torch-cuda-test --no-half-va
 --disable-tls-verify | None | False | 传递时，启用自签名证书(self-signed certificates)的使用。|
 --server-name | SERVER_NAME | None | 设置服务器主机名 |
 --no-gradio-queue | None| False | 禁用gradio队列；使网页使用http请求而不是websockets；在早期版本中是默认值
---no-hashing | None | False | 禁用检查点的sha256哈希以帮助提高加载性能 |
+--no-hashing | None | False | 禁用检查点(checkpoint(s))的sha256哈希以帮助提高加载性能 |
 --skip-version-check | None | False | 不检查torch和xformers的版本 |
 --skip-python-version-check | None | False | 不检查Python版本 |
 --skip-torch-cuda-test | None | False | 不检查CUDA是否能正常工作 |
@@ -111,7 +111,7 @@ set COMMANDLINE_ARGS=--allow-code --xformers --skip-torch-cuda-test --no-half-va
 --sub-quad-chunk-threshold ｜ SUB_QUAD_CHUNK_THRESHOLD ｜ None ｜ 子二次交叉注意层优化使用分块的VRAM百分比阈值|
 --opt-channelslast ｜ None ｜ False ｜ 启用4d张量的替代布局，可能会导致更快的推理**only**在具有张量核心（16xx及更高版本）的Nvidia卡上|
 --disable-opt-split-attention ｜ None ｜ False ｜ 强制禁用交叉注意层优化|
---disable-nan-check | None | False | 不检查生成的图像/潜在空间是否有nans；在CI中无检查点运行时有用|
+--disable-nan-check | None | False | 不检查生成的图像/潜在空间(latent space)是否有nans；在CI中无检查点(checkpoint(s))运行时有用|
 --use-cpu | {all, sd, interrogate, gfpgan, bsrgan, esrgan, scunet, codeformer} | None | 为指定模块使用CPU作为torch设备 |
 --no-half | None | False | 不将模型切换为16位浮点数 |
 --precision | {full,autocast} | autocast | 以此精度评估 |
@@ -119,7 +119,7 @@ set COMMANDLINE_ARGS=--allow-code --xformers --skip-torch-cuda-test --no-half-va
 --upcast-sampling ｜ None ｜ False ｜ 上采样。对--no-half无效。通常产生与--no-half相似的结果，性能更好，同时使用更少的内存。|
 --medvram ｜ None ｜ False ｜ 启用稳定扩散模型优化，以牺牲一点速度来获得低VRM使用率|
 --lowvram ｜ None ｜ False ｜ 启用稳定扩散模型优化，以牺牲大量速度来获得非常低的VRM使用率|
---lowram ｜ None ｜ False ｜ 将稳定扩散检查点权重加载到VRAM而不是RAM中|
+--lowram ｜ None ｜ False ｜ 将稳定扩散检查点(checkpoint(s))权重加载到VRAM而不是RAM中|
 --always-batch-cond-uncond ｜ None ｜ False ｜ 禁用通过--medvram或--lowvram启用的cond/uncond批处理，以节省内存|
 | **FEATURES** |
 --autolaunch | None | False | 启动时在系统默认浏览器中打开webui URL |

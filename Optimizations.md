@@ -10,7 +10,7 @@ A number of optimization can be enabled by [commandline arguments](Command-Line-
 | `--disable-opt-split-attention` | 禁用上面的优化。 |
 | `--opt-sub-quad-attention` | 子二次注意力，一种内存高效的交叉注意力层优化，可以显著减少所需内存，有时会略微降低性能。如果在xformers不起作用的硬件/软件配置下性能不佳或生成失败，则建议使用。在macOS上，这也将允许生成更大的图像。 |
 | `--opt-split-attention-v1` | 使用上面优化的旧版本，不那么占用内存（它将使用更少的VRAM，但会更限制您可以制作的图片的最大尺寸）。 |
-| `--medvram` | 通过将Stable Diffusion模型分成三部分 - cond（将文本转换为数值表示），first_stage（将图片转换为潜在空间并返回）和unet（实际去噪潜在空间）并使得一次只有一个在VRAM中，其他发送到CPU RAM中，使Stable Diffusion模型消耗更少的VRAM。降低性能，但只是一点点 - 除非启用实时预览。 |
+| `--medvram` | 通过将Stable Diffusion模型分成三部分 - cond（将文本转换为数值表示），first_stage（将图片转换为潜在空间(latent space)并返回）和unet（实际降噪(denoising)潜在空间(latent space)）并使得一次只有一个在VRAM中，其他发送到CPU RAM中，使Stable Diffusion模型消耗更少的VRAM。降低性能，但只是一点点 - 除非启用实时预览。 |
 | `--lowvram` | 上述优化更彻底，将unet分成多个模块，并且只保留一个模块在VRAM中。对性能造成毁灭性打击。 |
 | `*do-not-batch-cond-uncond` | 在采样过程中防止正负提示批处理，这基本上可以让您以0.5批处理大小运行，节省大量内存。降低性能。不是命令行选项，而是通过使用`--medvram`或`--lowvram`隐式启用的优化。 |
 | `--always-batch-cond-uncond` | 禁用上面的优化。仅与`--medvram`或`--lowvram`一起使用才有意义 |

@@ -71,7 +71,7 @@ https://user-images.githubusercontent.com/120772120/221390831-9fbccdf8-5898-4515
 ## CFG-Schedule-for-Automatic1111-SD
 https://github.com/guzuligo/CFG-Schedule-for-Automatic1111-SD
 
-这两个脚本允许在生成步骤(step)期间动态控制CFG。 通过正确的设置，即使在img2img中降噪较低，也可以帮助获得高CFG的细节，而不会损坏生成的图像(image)。
+这两个脚本允许在生成步骤(step)期间动态控制CFG。 通过正确的设置，即使在img2img中降噪强度(Denoising strength)较低，也可以帮助获得高CFG的细节，而不会损坏生成的图像(image)。
 
 See their [wiki](https://github.com/guzuligo/CFG-Schedule-for-Automatic1111-SD/wiki/CFG-Auto-script) on how to use.
 
@@ -277,7 +277,7 @@ https://github.com/vladmandic/sd-extension-system-info
 ## Steps Animation
 https://github.com/vladmandic/sd-extension-steps-animation
 
-该扩展可以从去噪的中间步骤创建动画序列，并在**txt2img**和**img2img**选项卡中注册一个脚本。  
+该扩展可以从降噪(denoised)的中间步骤中间步骤创建动画序列，并在**txt2img**和**img2img**选项卡中注册一个脚本。  
 
 创建动画对整体性能的影响很小，因为它不需要单独的运行，只需要增加保存每个中间步骤的图像以及实际创建电影文件的几秒钟的开销。 
 
@@ -402,7 +402,7 @@ https://github.com/aria1th/Hypernetwork-MonkeyPatch-Extension
 ## Ultimate SD Upscaler
 https://github.com/Coyote-A/ultimate-upscale-for-automatic1111
 
-提供更高级别的SD Upscale选项，使用更高的去噪比率（0.3-0.5），生成的图片比原始图片少一些伪影。
+提供更高级别的SD Upscale选项，使用更高的降噪(denoise)比率（0.3-0.5），生成的图片比原始图片少一些伪影。
 
 ![image](https://user-images.githubusercontent.com/98228077/223559884-5498d495-c5f3-4068-8711-f9f31fb2d435.png)
 

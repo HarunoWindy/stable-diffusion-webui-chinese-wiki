@@ -15,8 +15,8 @@ samples_ddim, _ = sampler.sample(conditioning=c, unconditional_conditioning=uc, 
 ```
 
 这启动了采样器，它反复执行以下操作：
-- 去噪图片，使其看起来更像你的提示(prompt)（conditioning）
-- 去噪图片，使其看起来更像空提示(unconditional_conditioning)
+- 降噪(de-noises)图片，使其看起来更像你的提示(prompt)（conditioning）
+- 降噪(de-noises)图片，使其看起来更像空提示(unconditional_conditioning)
 - 查看两者之间的差异，并使用它来为噪声图片生成一组更改（不同采样器以不同方式执行该部分）
 
 要使用负面提示(negative prompt)，只需要这样做：
@@ -31,7 +31,7 @@ uc = model.get_learned_conditioning(negative_prompts)
 samples_ddim, _ = sampler.sample(conditioning=c, unconditional_conditioning=uc, [...])
 ```
 
-然后采样器将查看去噪后看起来像您提示(prompt)（城堡）的图像与去噪后看起来像您负面提示(negative prompt)（颗粒状、雾）的图像之间的差异，并尝试将最终结果向前者移动并远离后者。
+然后采样器将查看降噪强度(Denoising strength)后看起来像您提示(prompt)（城堡）的图像与降噪强度(Denoising strength)后看起来像您负面提示(negative prompt)（颗粒状、雾）的图像之间的差异，并尝试将最终结果向前者移动并远离后者。
 
 ### Examples:
 
