@@ -1,6 +1,6 @@
-负面提示(negative prompt)是一种使用Stable Diffusion的方法，它允许用户指定他不想看到的内容，而不需要为模型(model)增加额外的负担或要求。据我所知，我是第一个使用这种方法的人；添加它的提交是[757bb7c4](https://github.com/AUTOMATIC1111/stable-diffusion-webui/commit/757bb7c46b20651853ee23e3109ac4f9fb06a061)。这个功能在那些用它来消除Stable Diffusion的常见变形（如额外的四肢）的用户中非常受欢迎。除了能够指定你不想看到的内容（有时可以通过通常的提示(prompt)实现，有时不能），这还允许你在不使用任何75个令牌中的任何一个的情况下做到这一点。
+负面提示(negative prompt)是一种用户指定不想看到的内容方式，它不需要为模型(model)增加额外的负担或要求。据我所知，我首次使用的commmit是[757bb7c4](https://github.com/AUTOMATIC1111/stable-diffusion-webui/commit/757bb7c46b20651853ee23e3109ac4f9fb06a061)。这个功能常用来消除Stable Diffusion的常见变形（如额外的四肢）或不想看到的内容(有时也可以通过prompt实现)。不消耗prompt的75个token上限。
 
-负面提示(negative prompt)的工作方式是在进行采样时，使用用户指定的文本而不是空字符串作为`unconditional_conditioning`。
+负面提示(negative prompt)的工作方式是在进行采样时，`unconditional_conditioning`设置为指定的文本代替是字符串。
 
 下面是来自[txt2img.py](https://github.com/CompVis/stable-diffusion/blob/main/scripts/txt2img.py)的（简化版）代码：
 
@@ -14,10 +14,10 @@ uc = model.get_learned_conditioning(batch_size * [""])
 samples_ddim, _ = sampler.sample(conditioning=c, unconditional_conditioning=uc, [...])
 ```
 
-这启动了采样器，它反复执行以下操作：
+启动采样器，重复执行以下操作：
 - 降噪(de-noises)图片，使其看起来更像你的提示(prompt)（conditioning）
 - 降噪(de-noises)图片，使其看起来更像空提示(unconditional_conditioning)
-- 查看两者之间的差异，并使用它来为噪声图片生成一组更改（不同采样器以不同方式执行该部分）
+- 查看两者之间的差异，并使用它根据噪声图片生成一组更改（不同采样器执行不同的部分）
 
 要使用负面提示(negative prompt)，只需要这样做：
 
@@ -31,7 +31,7 @@ uc = model.get_learned_conditioning(negative_prompts)
 samples_ddim, _ = sampler.sample(conditioning=c, unconditional_conditioning=uc, [...])
 ```
 
-然后采样器将查看降噪强度(Denoising strength)后看起来像您提示(prompt)（城堡）的图像与降噪强度(Denoising strength)后看起来像您负面提示(negative prompt)（颗粒状、雾）的图像之间的差异，并尝试将最终结果向前者移动并远离后者。
+然后采样器将观察降噪(de-noised)后看起来像prompt(城堡)与看起来像negative prompt(颗粒状、雾)的图像之间的差异，并尝试将最终结果向P移动并远离NP。
 
 ### Examples:
 

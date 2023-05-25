@@ -1,5 +1,5 @@
 ## [2023-04-29](https://github.com/AUTOMATIC1111/stable-diffusion-webui/pull/9669) - Fix prompt schedule for second order samplers
-第二阶采样器(Heun，DPM2/a，DPM++ 2S/a，DPM++ SDE / Karras)会导致提示计划运行速度加快两倍，例如 `[dog:cat:0.5]` (即对于100个步骤，提示为`dog`直到步骤25，`cat`直到50，并保持`dog`直到100)。这通过检查采样器是否为这些第二阶采样器中的任何一个并将步骤计数乘以2来计算提示计划来修复。
+第二阶采样器(Heun，DPM2/a，DPM++ 2S/a，DPM++ SDE / Karras)会导致prompt计划运行速度加快两倍，例如 `[dog:cat:0.5]` (即对于100个步骤，提示为`dog`直到步骤25，`cat`直到50，并保持`dog`直到100)。解决了使用第二阶采样器计算prompt时会将步骤计数x2的问题(This fixes that by checking if the sampler is any of these second order samplers and multiplies the step count by 2 for calculating the prompt schedule)。
 
 # [2023-03-26](https://github.com/AUTOMATIC1111/stable-diffusion-webui/commit/80b26d2a69617b75d2d01c1e6b7d11445815ed4d) - Apply LoRA by altering layer's weights
 简而言之(Too Long; Didn’t Read)：生成的图片有一点不同。如果使用高分辨率修复，这些小差异可能会被放大成大的差异。
