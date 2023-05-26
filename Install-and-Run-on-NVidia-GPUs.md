@@ -1,42 +1,47 @@
 # Automatic Installation
 ## Windows (method 1)
 
-> 一个非常基础的指南，用于在Windows 10/11 NVIDIA GPU上启动并运行Stable Diffusion web UI。1. 从[v1.0.0-pre](https://github.com/AUTOMATIC1111/stable-diffusion-webui/releases/tag/v1.0.0-pre)下载`sd.webui.zip`并解压缩该zip文件。2. 双击`update.bat`脚本以将web UI更新到最新版本，等待完成后关闭窗口。3. 双击`run.bat`脚本以启动web UI，在首次启动时它将下载大量文件。在所有内容都已正确下载和安装后，您应该看到一条消息“`Running on local URL: http://127.0.0.1:7860`”，打开链接将呈现给您web UI界面。
+> 用于Windows 10/11 NVIDIA GPU上启动并运行Stable Diffusion web UI的基础指南。
+
+1. 从[here](https://github.com/AUTOMATIC1111/stable-diffusion-webui/releases/tag/v1.0.0-pre)下载`sd.webui.zip`并解压缩该zip文件。
+2. 运行`update.bat`，将web UI更新到最新版本，等待完成后关闭窗口。
+3. 运行`run.bat`启动web UI，在首次启动时将下载大量文件。在所有内容都已正确下载和安装后，会提示“`Running on local URL: http://127.0.0.1:7860`”，打开链接即可。
 > 您应该能够开始生成图像
 
 ### Extra configurations via `COMMANDLINE_ARGS`
-您可能希望将一些配置选项应用于web UI，为了配置这些选项，您需要编辑位于`sd.webui\webui\webui-user.bat`的启动脚本，在文件中编辑，在`set COMMANDLINE_ARGS=`后添加所选参数，如下所示：
+配置web UI的选项可以编辑`sd.webui\webui\webui-user.bat`，在文件中编辑，`set COMMANDLINE_ARGS=`后添加所选参数，如下所示：
 ```bat
 set COMMANDLINE_ARGS=--autolaunch --update-check
 ```
 > 每个单独的参数都需要用空格分隔，上面的示例将配置web UI在完成加载后自动启动浏览器页面，并在启动时检查web UI的新版本。
 
 ### Troubleshooting
-Web UI的默认配置应该能在大多数GPU上运行，但在某些情况下，您可能需要一些额外的参数才能使其正常工作。
+Web UI的默认配置应该能在大多数GPU上运行，但有时可能需要一些额外的参数。
 
-1. 对于VRAM较少的GPU，您可能需要`--medvram`或`--lowvram`，这些优化减少了VRAM的需求，但牺牲了性能。 如果您没有足够的VRAM，web UI可能拒绝启动或由于内存不足而无法生成图像(image)。 所需的VRAM量很大程度上取决于所需的图像分辨率，有关更多详细信息，请参见[Troubleshooting](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Troubleshooting)。
+1. 对于VRAM较少的GPU，您可能需要`--medvram`或`--lowvram`，此优化牺牲性能以减少VRAM的需求。 所需的VRAM量很大程度上取决于所需的图像分辨率，如果您没有足够的VRAM，web UI可能拒绝启动或由于内存不足无法工作。详细信息请参见[Troubleshooting](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Troubleshooting)。
 > [Tiled VAE](https://github.com/pkuliyi2015/multidiffusion-upscaler-for-automatic1111)扩展可以帮助减少VRAM的需求。
 
-2. 如果您生成的结果是黑色或绿色图像(image)，请尝试添加`--precision full`和`--no-half`。
+2. 如果您生成的结果是黑色或绿色，请尝试添加`--precision full`和`--no-half`。
 
-3. 某些模型(model)和VAE的组合容易产生`NansException: A tensor with all NaNs was produced in VAE`，从而导致黑色图像(image)，使用选项`--no-half-vae`可能有助于缓解此问题。
+3. 某些模型(model)和VAE的组合容易产生`NansException: A tensor with all NaNs was produced in VAE`，从而导致黑色图像，请添加`--no-half-vae`参数。
 
 ### Extra Options
-1. 有几种交叉衰减优化方法，例如`--xformers`或`--opt-sdp-attention`，这些方法可以大大提高性能，有关更多详细信息，请参见[Optimizations](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Optimizations)，并尝试不同的选项，因为不同的硬件适用于不同的优化。 如果您希望测量系统的性能，请尝试使用[sd-extension-system-info](https://github.com/vladmandic/sd-extension-system-info)扩展，它具有基准测试工具和用户提交结果的[数据库](https://vladmandic.github.io/sd-extension-system-info/pages/benchmark.html)。
+1. 有几种交叉衰减优化(cross attenuation optimization)方法，例如`--xformers`或`--opt-sdp-attention`，可以大大提高性能，详细信息请见[Optimizations](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Optimizations)，不同的硬件搭配不同的选项会有不同的优化效果。
+
+如果您希望测量系统的性能，请尝试使用[sd-extension-system-info](https://github.com/vladmandic/sd-extension-system-info)扩展，它提供了标准测试工具和用户提交的[数据库](https://vladmandic.github.io/sd-extension-system-info/pages/benchmark.html)。
 2. 添加`--autolaunch`，在web UI启动后自动启动web浏览器。
 3. 添加`--update-check`将在webui有新版本时通知您。
-4. 有关更多配置选项，请参见[Command Line Arguments and Settings
-](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Command-Line-Arguments-and-Settings)。
+4. 更多配置选项请见[Command Line Arguments and Settings](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Command-Line-Arguments-and-Settings)。
 
 ### Tip
-如果您已经下载了Stable Diffusion模型，您可以在运行第3步中的`run.bat`之前，将模型移动到`sd.webui\webui\models\Stable-diffusion\`，这将跳过自动下载[stable-diffusion-v1-5 model](https://huggingface.co/runwayml/stable-diffusion-v1-5)模型。
+如果您已经下载了Stable Diffusion模型，您可以在运行第3步中的`run.bat`之前，将模型移动到`sd.webui\webui\models\Stable-diffusion\`，这将跳过自动下载vanilla [stable-diffusion-v1-5 model](https://huggingface.co/runwayml/stable-diffusion-v1-5)model。
 
 ## Windows (method 2)
 1. 安装[Python 3.10.6](https://www.python.org/ftp/python/3.10.6/python-3.10.6-amd64.exe)（勾选**Add to PATH**），和[git](https://github.com/git-for-windows/git/releases/download/v2.39.2.windows.1/Git-2.39.2-64-bit.exe)
-2. 从搜索栏打开命令提示符，并输入`git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui`
+2. 打开命令行，输入`git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui`
 3. 双击`webui-user.bat`
 
-如果您遇到困难，可以参考安装视频：\
+如果您遇到困难，可以参考安装视频：
 <sup>解决[#8229](https://github.com/AUTOMATIC1111/stable-diffusion-webui/issues/8229)</sup>
 
 <details><summary>视频：（点击展开）：</summary>
@@ -290,7 +295,7 @@ conda activate automatic
 此时，可以从步骤`# clone repositories for Stable Diffusion and (optionally) CodeFormer`开始应用手动安装的说明。
 
 # Alternative installation on Windows using Conda
-- Prerequisites _*(Only needed if you do not have them)*_. Assumes [Chocolatey](https://chocolatey.org/install) is installed. 
+- Prerequisites 需要装有[Chocolatey](https://chocolatey.org/install). 
     ```bash
     # install git
     choco install git
@@ -327,6 +332,6 @@ conda activate automatic
         ```
 - 值得尝试的替代默认值：
 1. 尝试**euler a**（Ancestral Euler），并将**Sampling Steps**提高到40或其他100。
-2. 将“设置>用户界面>每N个采样步骤显示图像创建进度”设置为1，并选择确定性的**Seed**值。可以直观地看到图像去扩散是如何发生的，并使用[ScreenToGif](https://github.com/NickeManarin/ScreenToGif)记录a.gif。
+2. 将“设置>用户界面>每N个采样步骤显示图像创建进度(Settings > User interface > Show image creation progress every N sampling steps)”设置为1，并选择确定性的**Seed**值。可以直观地看到图像去扩散是如何发生的，并使用[ScreenToGif](https://github.com/NickeManarin/ScreenToGif)记录a.gif。
 3. 使用**Restore faces**。通常，效果更好，但这种质量是以速度为代价的。
 
