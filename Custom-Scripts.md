@@ -1,13 +1,12 @@
 # Installing and Using Custom Scripts
 要安装自定义脚本，请将它们放入`scripts`目录中，然后在设置选项卡底部单击`Reload custom script`按钮。安装后，自定义脚本将出现在txt2img和img2img选项卡左下角的下拉菜单中。以下是一些由Web UI用户创建的值得注意的自定义脚本：
 
-
 ## txt2img2img 
 https://github.com/ThereforeGames/txt2img2img
 
-极大地提高了任何角色/主题的可编辑性，同时保留了它们的相似性。这个脚本的主要动机是通过[Textual Inversion](https://textual-inversion.github.io/)改进embeddings的可编辑性。
+重新训练任何角色/主题的相似性时，极大地提高了可编辑性。这个脚本的主要实现方式是通过[Textual Inversion](https://textual-inversion.github.io/)改进embeddings的可编辑性。
 
-（克隆时要小心，因为它检查了一点venv）
+（克隆时要小心，因为它加入了一些venv）
 
 <details><summary>Example: (Click to expand:)</summary>
 <img src="https://user-images.githubusercontent.com/98228077/200106431-21a22657-db24-4e9c-b7fa-e3a8e9096b89.png" width="624" height="312" />
@@ -16,7 +15,7 @@ https://github.com/ThereforeGames/txt2img2img
 ## txt2mask
 https://github.com/ThereforeGames/txt2mask
 
-允许您使用文本指定修复掩码，而不是画笔。
+允许您使用文本代替画笔指定inpainting mask。
 
 <details><summary>Example: (Click to expand:)</summary>
 <img src="https://user-images.githubusercontent.com/95403634/190878562-d020887c-ccb0-411c-ab37-38e2115552eb.png" width="674" height="312" />
@@ -25,7 +24,7 @@ https://github.com/ThereforeGames/txt2mask
 ## Mask drawing UI
 https://github.com/dfaker/stable-diffusion-webui-cv2-external-masking-script
 
-提供一个由CV2支持的本地弹出窗口，在处理前允许添加掩码。
+提供一个由CV2支持的本地popup window，允许在处理前添加mask。
 
 <details><summary>Example: (Click to expand:)</summary>
 <img src="https://user-images.githubusercontent.com/98228077/200109495-3d6741f1-0e25-4ae5-9f84-d93f886f302a.png" width="302" height="312" />
@@ -39,18 +38,18 @@ https://github.com/memes-forever/Stable-diffusion-webui-video
 ## Advanced Seed Blending
 https://github.com/amotile/stable-diffusion-backend/tree/master/src/process/implementations/automatic1111_scripts
 
-这个脚本允许您基于多个加权种子(seed)来设置初始噪声。
+这个脚本允许您基于多个weighted seeds来设置初始噪声。
 
 例如：`seed1:2, seed2:1, seed3:1`
 
-权重是归一化的，所以您可以使用更大的数字，如上面的例子，或者您可以使用浮点数：
+weights可以使用更大的数字，也可以使用浮点数：
 
 Ex. `seed1:0.5, seed2:0.25, seed3:0.25`
 
 ## Prompt Blending
 https://github.com/amotile/stable-diffusion-backend/tree/master/src/process/implementations/automatic1111_scripts
 
-这个脚本允许您在生成图像之前，通过数学地组合它们的文本嵌入来将多个加权提示(prompt)组合在一起。
+这个脚本允许您在生成图像之前，通过数学地组合它们的textual embeddings来将多个weighted prompts组合在一起。
 
 例如：
 
@@ -73,9 +72,9 @@ https://github.com/rewbs/sd-parseq
 ## Alternate Noise Schedules
 https://gist.github.com/dfaker/f88aa62e3a14b559fe4e5f6b345db664
 
-使用替代生成器来生成采样器的sigma时间表。
+使用替代生成器来生成sampler's sigma schedule。
 
-允许访问crowsonkb/k-diffusion中的Karras，指数和方差保持时间表及其参数。
+允许使用crowsonkb/k-diffusion及其参数的形式使用Karras, Exponential and Variance Preserving schedules。
 
 ## Vid2Vid
 https://github.com/Filarius/stable-diffusion-webui/blob/master/scripts/vid2vid.py
@@ -85,7 +84,7 @@ https://github.com/Filarius/stable-diffusion-webui/blob/master/scripts/vid2vid.p
 ## Txt2VectorGraphics
 https://github.com/GeorgLegato/Txt2Vectorgraphics
 
-从您的提示(prompt)中创建自定义、可缩放的图标，以SVG或PDF格式输出。
+根据prompts创建自定义、可缩放的SVG或PDF icon()。
 
 <details><summary>Example: (Click to expand:)</summary>
 
@@ -103,14 +102,14 @@ https://github.com/DiceOwl/StableDiffusionStuff
 
 https://github.com/DiceOwl/StableDiffusionStuff/blob/main/loopback_superimpose.py
 
-将img2img的输出与原始输入图像以alpha强度混合。结果再次输入到img2img中（在loop>=2时），并重复此过程。倾向于使图像更清晰，提高一致性，减少创造力和减少细节。
+将img2img的输出与原始输入图像以strength alpha混合。结果再次输入到img2img中（在loop>=2时），并重复此过程。倾向于使图像更清晰，提高一致性，减少创造力和减少细节。
 
 ## Interpolate
 https://github.com/DiceOwl/StableDiffusionStuff
 
 https://github.com/DiceOwl/StableDiffusionStuff/blob/main/interpolate.py
 
-一个img2img脚本，用于生成中间图像。允许两个输入图像进行插值。更多功能请参见[readme](https://github.com/DiceOwl/StableDiffusionStuff)。
+一个img2img脚本，用于生成中间图像。允许两个输入图像进行融合(Allows two input images for interpolation)。更多功能请参见[readme](https://github.com/DiceOwl/StableDiffusionStuff)。
 
 ## Run n times
 https://gist.github.com/camenduru/9ec5f8141db9902e375967e93250860f
@@ -120,12 +119,12 @@ Run n times with random seed.
 ## Advanced Loopback
 https://github.com/Extraltodeus/advanced-loopback-for-sd-webui
 
-具有参数变化和提示(prompt)切换等其他功能的动态缩放回路！
+具有参数变化和prompt切换等其他功能的动态缩放loopback！
 
 ## prompt-morph
 https://github.com/feffy380/prompt-morph
 
-使用Stable Diffusion生成形态序列。 在两个或多个提示(prompt)之间插值并在每个步骤(step)创建图像(image)。
+使用Stable Diffusion生成morph序列。 在两个或多个prompts之间融合，并在每个步骤创建图像。
 
 使用新的AND关键字，并可以选择将序列作为视频导出。
 
@@ -144,7 +143,7 @@ https://github.com/EugeoSynthesisThirtyTwo/prompt-interpolation-script-for-sd-we
 ## Asymmetric Tiling
 https://github.com/tjm35/asymmetric-tiling-sd-webui/
 
-独立控制水平/垂直无缝平铺(tile)。
+独立控制水平/垂直无缝拓展(Tiling)。
 
 <details><summary>Example: (Click to expand:)</summary>
 <img src="https://user-images.githubusercontent.com/19196175/195132862-8c050327-92f3-44a4-9c02-0f11cce0b609.png" width="624" height="312" />
@@ -164,7 +163,7 @@ see https://github.com/AUTOMATIC1111/stable-diffusion-webui/discussions/2441
 ## txt2palette
 https://github.com/1ort/txt2palette
 
-通过文本描述生成调色板。 此脚本获取生成的图像(image)，并将它们转换为调色板。
+通过文本描述生成调色板。此脚本获取生成的图像(image)，并将它们转换为调色板。
 
 <details><summary>Example: (Click to expand:)</summary>
 <img src="https://user-images.githubusercontent.com/83316072/199360686-62f0f5ec-ed3d-4c0f-95b4-af9c67d1e248.png" width="352" height="312" />
@@ -186,7 +185,7 @@ https://github.com/0xALIVEBEEF/Expanded-XY-grid
 
 - 多工具：允许在一个轴上使用多个参数，理论上允许在一个xy网格中调整无限个参数
 
-- 可定制的提示(prompt)矩阵
+- 可定制的prompt矩阵
 
 - 在目录中分组文件
 
@@ -206,6 +205,7 @@ Example images: Prompt: "darth vader riding a bicycle, modifier"; X: Multitool: 
 https://github.com/dfaker/embedding-to-png-script
 
 Converts existing embeddings to the shareable image versions.
+embeddings转为便于分享的png图片。
 
 <details><summary>Example: (Click to expand:)</summary>
 <img src="https://user-images.githubusercontent.com/35278260/196052398-268a3a3e-0fad-46cd-b37d-9808480ceb18.png" width="263" height="256" />
@@ -214,7 +214,7 @@ Converts existing embeddings to the shareable image versions.
 ## Alpha Canvas
 https://github.com/TKoestlerx/sdexperiments
 
-Outpaint a region. Infinite outpainting concept, used the two existing outpainting scripts from the AUTOMATIC1111 repo as a basis.
+涂刷一个区域。无限涂刷理念(Infinite outpainting concept)，以AUTOMATIC1111仓库的内容为基础，使用2个outpainting scripts。
 
 <details><summary>Example: (Click to expand:)</summary>
 <img src="https://user-images.githubusercontent.com/86352149/199517938-3430170b-adca-487c-992b-eb89b3b63681.jpg" width="446" height="312" />
@@ -228,8 +228,8 @@ Randomly enter xy grid values.
 <details><summary>Example: (Click to expand:)</summary>
 <img src="https://user-images.githubusercontent.com/20321215/197346726-f93b7e84-f808-4167-9969-dc42763eeff1.png" width="198" height="312" />
 
-基本逻辑与x/y图相同，只是在内部，x类型固定为步骤(step)，y类型固定为cfg。
-在步骤(step)1|2值（10-30）的范围内生成与步骤(step)计数（10）一样多的x值
+基本逻辑与x/y图相同，只是在内部，x类型固定为step，y类型固定为cfg。
+在步骤(step)1|2值（10-30）的范围内生成与step计数（10）一样多的x值
 在cfg1|2值（6-15）的范围内生成与cfg计数（10）一样多的x值
 即使您将1|2范围上限倒置，它也会自动更改。
 对于cfg值，它被视为int类型，不读取小数值。
@@ -261,7 +261,7 @@ generate tiles from a base image. Based on SD upscale script.
 ## img2mosiac
 https://github.com/1ort/img2mosaic
 
-Generate mosaics from images. The script cuts the image into tiles and processes each tile separately. The size of each tile is chosen randomly.
+生成马赛克图像. 该脚本把图像切分为若干tiles，然后分别执行。每个tile尺寸随机。
 
 <details><summary>Example: (Click to expand:)</summary>
 <img src="https://user-images.githubusercontent.com/83316072/200170569-0e7131e4-1da8-4caf-9cd9-5b785c9d21b0.png" width="758" height="312" />
@@ -270,11 +270,11 @@ Generate mosaics from images. The script cuts the image into tiles and processes
 ## Test my prompt
 https://github.com/Extraltodeus/test_my_prompt
 
-您是否曾经使用过一个非常长的提示(prompt)，其中充满了您不确定是否对图像(image)产生实际影响的单词？ 您是否失去了勇气逐一尝试删除它们以测试它们的效果是否值得您珍贵的GPU？
+您是否曾经使用过一个非常长的prompt，其中充满了您不确定是否对图像产生实际影响的word？您是否失去了勇气逐一尝试删除它们以测试它们的效果是否值得您珍贵的GPU？
 
 现在，您不再需要任何勇气，因为这个脚本是为您量身定做的！
 
-它生成与提示(prompt)中单词数量相同的图像(image)（当然，您可以选择分隔符）。
+它会在prompt中尝试删除每一个word并生成一次图像。
 
 <details><summary>Example: (Click to expand:)</summary>
 
@@ -282,14 +282,14 @@ Here the prompt is simply : "**banana, on fire, snow**" and so as you can see it
 
 <img src="https://user-images.githubusercontent.com/15731540/200349119-e45d3cfb-39f0-4999-a8f0-4671a6393824.png" width="512" height="512" />
 
-You can also test your negative prompt.
+negative prompt也可以使用。
 
 </details>
 
 ## Pixel Art
 https://github.com/C10udburst/stable-diffusion-webui-scripts
 
-Simple script which resizes images by a variable amount, also converts image to use a color palette of a given size.
+一个通过变量(variable amount)改变图片大小的简单脚步，也可以将图片转换为给定大小的调色板。
 
 <details><summary>Example: (Click to expand:)</summary>
 
@@ -314,38 +314,38 @@ https://github.com/FartyPants/sd_web_ui_scripts
 
 ### Mr. Negativity
 
-- 更高级的脚本，根据Mr. negativity rage交换负面(negative)和正面(positive)令牌。
+- 更高级的脚本，根据Mr. negativity rage交换负面(negative)和正面(positive)tokens。
 
 ## gif2gif
 https://github.com/LonicaMewinsky/gif2gif
 
-此脚本的目的是接受动画gif作为输入，像img2img通常那样处理帧，然后将它们重新组合成动画gif。 没有打算具有广泛的功能。 参考了prompts_from_file的代码。
+此脚本的目的是接受动画gif作为输入，像img2img通常那样处理帧，然后将它们重新组合成动画gif。 没有打算具有广泛的功能。参考了prompts_from_file的代码。
 
 ## Post-Face-Restore-Again
 https://github.com/butaixianran/Stable-Diffusion-Webui-Post-Face-Restore-Again
 
-Run face restore twice in one go, from extras tab.
+在extras tab可以开启强力面部修复。
 
 ## Infinite Zoom
 https://github.com/coolzilj/infinite-zoom
 
-Generate Zoom in/out videos, with outpainting, as a custom script for inpaint mode in img2img tab.
+img2img tab中inpaint模式的脚本，通过outpainting生成放大/缩小视频。
 
 ## ImageReward Scorer
 
 https://github.com/THUDM/ImageReward#integration-into-stable-diffusion-web-ui
 
-An image **scorer** based on [ImageReward](https://github.com/THUDM/ImageReward), the first general-purpose text-to-image human preference RM, which is trained on in total **137k pairs of expert comparisons**.
+一个基于[ImageReward](https://github.com/THUDM/ImageReward)的**打分器**。它是第一个general-purpose文生图human preference RM, 经过了总计 **13.7w次**专业训练.
 
 [**Features**](https://github.com/THUDM/ImageReward#features) developed to date (2023-04-24) include:  (click to expand demo video)
 <details>
-    <summary>1. Score generated images and append to image information</summary>
+    <summary>1. 对生成的图像进行评分并附加到图像信息</summary>
     
 https://user-images.githubusercontent.com/98524878/233889441-d593675a-dff4-43aa-ad6b-48cc68326fb0.mp4
   
 </details>
 <details>
-    <summary>2. Automatically filter out images with low scores</summary>
+    <summary>2. 自动过滤掉分数低的图片</summary>
     
 https://user-images.githubusercontent.com/98524878/233889490-5c4a062f-bb5e-4179-ba98-b336cda4d290.mp4
   
