@@ -1,0 +1,2 @@
+- [How to make your own Inpainting model](How-to-make-your-own-Inpainting-model.md)
+- [youtube - SECourses's Stable Diffusion Tutorials Playlist](https://www.youtube.com/playlist?list=PL_pbwdIyffsmclLl0O144nQRnezKlNdx3)

@@ -7,27 +7,27 @@
 
 ![image](https://user-images.githubusercontent.com/2993060/198171114-ed1c5edd-76ce-4c34-ad73-04e388423162.png)
 
-- 当您展开该标签时，它会提供一个向API发送的示例负载。我经常以此作为参考。
+- 当您展开该标签时，它会提供一个向API发送的示例payload。我经常以此作为参考。
 
 ![image](https://user-images.githubusercontent.com/2993060/198171454-5b826ded-5e73-4249-9c0c-a97b32c42569.png)
 
 ------
 
-- 这是后端的工作原理。API基本上说明了可用的内容、需要的内容以及发送位置。现在转向前端，我将开始构建一个带有我想要的参数的负载。一个示例可能是：
+- 这是后端的工作原理。API基本上说明了可用的内容、需要的内容以及发送位置。现在转向前端，我将开始构建一个带有我想要的参数的payload。一个示例可能是：
 ```py
 payload = {
     "prompt": "maltese puppy",
     "steps": 5
 }
 ```
-我可以在负载中放入任意数量的参数，对于我未设置的任何参数，API将使用默认值。
+我可以在payload中放入任意数量的参数，对于我未设置的任何参数，API将使用默认值。
 
 - 然后，我可以将其发送到API：
 ```py
 response = requests.post(url=f'http://127.0.0.1:7860/sdapi/v1/txt2img', json=payload)
 ```
 再次强调，此URL需要与Web UI的URL匹配。
-如果我们执行此代码，Web UI将根据负载生成图像。这很好，但是然后呢？没有图像可以找到...
+如果我们执行此代码，Web UI将根据payload生成图像。这很好，但是然后呢？没有图像可以找到...
 
 ------
 
@@ -39,7 +39,7 @@ for i in r['images']:
     image = Image.open(io.BytesIO(base64.b64decode(i.split(",",1)[0])))
 ```
 - 有了这个，我们可以在`image`变量中处理图像，例如使用`image.save('output.png')`保存图像。
-- "parameters"显示了发送到API的内容，这可能是有用的，但在这种情况下我想要的是"info"。我使用它将元数据插入图像中，这样我就可以将其放入Web UI PNG Info中。为此，我可以访问`/sdapi/v1/png-info` API。我需要将上面得到的图像传递给它。
+- "parameters"显示了发送到API的内容，这可能是有用的，但在这种情况下我想要的是"info"。我使用它将metadata插入图像中，这样我就可以将其放入Web UI PNG Info中。为此，我可以访问`/sdapi/v1/png-info` API。我需要将上面得到的图像传递给它。
 ```py
 png_payload = {
         "image": "data:image/png;base64," + i
@@ -82,8 +82,8 @@ for i in r['images']:
     image.save('output.png', pnginfo=pnginfo)
 ```
 - 导入所需的库
-- 定义URL和要发送的负载
-- 通过API将负载发送到指定的URL
+- 定义url和要发送的payload
+- 通过API将payload发送到指定的url
 - 在循环中获取"images"并对其进行解码
 - 对于每个图像，将其发送到png info API并获取信息
 - 定义一个插件来添加PNG信息，然后将我定义的PNG信息添加到其中
@@ -92,11 +92,11 @@ for i in r['images']:
 -----
 
 关于`"override_settings"`的说明。
-此端点的目的是为单个请求覆盖Web UI的设置，例如CLIP跳过。可以通过此参数传递的设置在URL的`/docs`中可见。
+此endpoint的目的是为单个request覆盖Web UI的设置，例如CLIP skip。可以通过此参数传递的设置在URL的`/docs`中可见。
 
 ![image](https://user-images.githubusercontent.com/2993060/202877368-c31a6e9e-0d05-40ec-ade0-49ed2c4be22b.png)
 
-您可以展开选项卡，API将提供一个列表。有几种方法可以将此值添加到负载中，但这是我使用的方法。我将使用"filter_nsfw"和"CLIP_stop_at_last_layers"来演示。
+您可以展开选项卡，API将提供一个列表。有几种方法可以将此值添加到payload中，但这是我使用的方法。我将使用"filter_nsfw"和"CLIP_stop_at_last_layers"来演示。
 
 ```py
 payload = {
@@ -113,15 +113,15 @@ override_payload = {
             }
 payload.update(override_payload)
 ```
-- 首先，创建一个正常的负载。
-- 然后，初始化一个字典（我将其命名为"override_settings"，但这可能不是最好的名称）。
-- 然后，可以向该字典中添加任意数量的键值对。
-- 创建一个只包含此参数的新负载。
-- 更新原始负载以添加此新负载。
+- 首先，创建一个正常的payload。
+- 然后，初始化一个dictionary（我将其命名为"override_settings"，但这可能不是最好的名称）。
+- 然后，可以向该dictionary中添加任意数量的key:value键值对。
+- 创建一个只包含此参数的新payload。
+- 更新原始payload以添加此新payload。
 
-因此，在这种情况下，当发送负载时，应该得到一个在20步时具有CLIP跳过为2的"cirno"，并启用了NSFW过滤器。
+因此，在这种情况下，当发送payload时，应该得到一个在20步时具有CLIP skip为2的"cirno"，并启用了NSFW filter。
 
-对于某些设置或情况，您可能希望您的更改保持不变。为此，您可以将其发布到`/sdapi/v1/options` API端点。我们可以根据我们之前学到的知识轻松设置代码。下面是一个示例：
+对于某些设置或情况，您可能希望您的更改保持不变。为此，您可以将其发布到`/sdapi/v1/options` API endpoint。我们可以根据我们之前学到的知识轻松设置代码。下面是一个示例：
 ```py
 url = "http://127.0.0.1:7860"
 
@@ -132,16 +132,16 @@ option_payload = {
 
 response = requests.post(url=f'{url}/sdapi/v1/options', json=option_payload)
 ```
-在将此负载发送到API后，模型应该切换到我设置的模型，并将CLIP跳过设置为2。需要再次强调，这与"override_settings"不同，因为此更改将持久存在，而"override_settings"仅适用于单个请求。
-请注意，如果更改了`sd_model_checkpoint`，则值应为Web UI中显示的检查点(checkpoint(s))名称。可以使用此API端点引用它（与"options" API引用方式相同）。
+在将此payload发送到API后，模型应该切换到我设置的模型，并将CLIP skip设置为2。需要再次强调，这与"override_settings"不同，因为此更改将持久存在，而"override_settings"仅适用于单个request。
+请注意，如果更改了`sd_model_checkpoint`，则值应为Web UI中显示的checkpoint名称。可以使用此API endpoint引用它（与"options" API引用方式相同）。
 
 ![image](https://user-images.githubusercontent.com/2993060/202928589-114aff91-2777-4269-9492-2eab015c5bca.png)
 
-您应该使用"标题"（名称和哈希值）。
+您应该使用"title" (name and hash) 。
 
 -----
 
-此信息基于提交[47a44c7](https://github.com/AUTOMATIC1111/stable-diffusion-webui/commit/47a44c7e421b98ca07e92dbf88769b04c9e28f86)。
+This is as of commit[47a44c7](https://github.com/AUTOMATIC1111/stable-diffusion-webui/commit/47a44c7e421b98ca07e92dbf88769b04c9e28f86)。
 
 要获得更完整的前端实现，您可以查看我的Discord机器人[here](https://github.com/Kilvoctu/aiyabot)作为示例。大部分操作都在stablecog.py中进行，并且有许多注释解释每段代码的作用。
 

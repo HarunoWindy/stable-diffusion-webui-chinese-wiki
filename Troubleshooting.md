@@ -1,5 +1,5 @@
-- **该程序经测试可在 Python 3.10.6 上运行。 除非您要找麻烦，否则不要使用其他版本。**
-- 程序需要16GB的常规内存才能平稳运行。如果您只有8GB的内存，请考虑创建一个8GB的页面文件/交换文件，或者使用[--lowram](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Command-Line-Arguments-and-Settings)选项（如果您的GPU VRAM超过内存）。
+- **该程序经测试可在 Python 3.10.6 上运行。不要使用其他版本。**
+- 程序需要16GB的常规内存才能平稳运行。如果您只有8GB的内存，请考虑创建一个8GB的页面file/swap文件，或者使用[--lowram](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Command-Line-Arguments-and-Settings)选项（如果您的GPU VRAM超过内存）。
 - 安装程序会创建一个Python虚拟环境，因此安装的模块不会影响现有系统安装的Python。
 - 要使用系统的Python而不是创建一个虚拟环境，请使用自定义参数替换`set VENV_DIR=-`。
 - 要从头重新安装，请删除以下目录：`venv`、`repositories`。
@@ -11,9 +11,9 @@
 # Low VRAM Video-cards
 在使用VRAM较低（<=4GB）的显卡时，可能会出现内存不足的错误。
 可以通过命令行参数启用各种优化，以减少显存使用，但会牺牲一些/很多速度：
-- 如果您拥有4GB VRAM，并且想要生成512x512（或者可能是640x640）的图像，请使用`--medvram`。
-- 如果您拥有4GB VRAM，并且想要生成512x512的图像，但使用`--medvram`时出现内存不足的错误，请改用`--lowvram --always-batch-cond-uncond`。
-- 如果您拥有4GB VRAM，并且想要生成比`--medvram`支持的更大图像，请使用`--lowvram`。
+- 如果VRAM = 4GB，并且想要生成 >= 512x512的图像，请使用`--medvram`。
+- 如果VRAM = 4GB，并且想要生成 >= 512x512的图像，但使用`--medvram`时出现内存不足的错误，请改用`--lowvram --always-batch-cond-uncond`。
+- 如果VRAM = 4GB，并且想要生成比`--medvram`支持的更大图像，请使用`--lowvram`。
 
 # Torch is not able to use GPU
 这是一个经常提到的问题，但通常不是WebUI的错误，有许多原因可能导致此问题。
@@ -62,6 +62,7 @@ https://github.com/gradio-app/gradio/issues/3677
 ![image](https://user-images.githubusercontent.com/98228077/229085355-0fbd56d6-fe1c-4858-8701-6c5697b9a6d6.png)
 
 This issue has been noted, 3 times. It is apparently something users in china may experience.
+这个问题被提到过3次。 这是中国用户可能会遇到的事情
 [#8537](https://github.com/AUTOMATIC1111/stable-diffusion-webui/issues/8537)
 
 <details><summary> Solution: </summary>
